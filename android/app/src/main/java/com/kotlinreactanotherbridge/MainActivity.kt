@@ -1,6 +1,7 @@
 package com.kotlinreactanotherbridge
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -38,12 +39,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.facebook.react.ReactActivity
-import com.facebook.react.ReactActivityDelegate
-import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
-import com.facebook.react.defaults.DefaultReactActivityDelegate
+import com.facebook.react.ReactInstanceManager
+import com.facebook.react.ReactRootView
 import com.kotlinreactanotherbridge.ui.OnboardCarousel
 import com.kotlinreactanotherbridge.ui.ReferralNav
+import com.kotlinreactanotherbridge.ui.WithdrawActivity
 import com.kotlinreactanotherbridge.ui.enterTransition
 import com.kotlinreactanotherbridge.ui.exitTransition
 import com.kotlinreactanotherbridge.ui.popEnterTransition
@@ -55,10 +55,25 @@ import com.kotlinreactanotherbridge.ui.theme.deposit
 import com.kotlinreactanotherbridge.ui.theme.withdraw
 import kotlinx.coroutines.launch
 
+
 class MainActivity : ComponentActivity() {
+
+
+  private lateinit var reactRootView: ReactRootView
+  private lateinit var reactInstanceManager: ReactInstanceManager
+
+
+  fun startReactNativeActivity() {
+    val myIntent = Intent(this, WithdrawActivity::class.java)
+//    myIntent.putExtra("key", value) //Optional parameters
+
+    startActivity(myIntent)
+  }
+
   @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
     setContent {
       val scope = rememberCoroutineScope()
       val snackbarHostState = remember { SnackbarHostState() }
@@ -95,7 +110,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(bottomBar = { BottomBarEiei(navController = navController) }) {
                   WalletView(onDeposit = {
                     navController.navigate("deposit")
-                  }, onWithdraw = { navController.navigate("withdraw") })
+                  }, onWithdraw = { startReactNativeActivity() })
                 }
               }
               composable("more") {
@@ -138,6 +153,8 @@ class MainActivity : ComponentActivity() {
         }
       }
     }
+
+
   }
 }
 
