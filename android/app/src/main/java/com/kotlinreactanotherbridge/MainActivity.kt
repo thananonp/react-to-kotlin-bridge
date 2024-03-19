@@ -39,11 +39,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.facebook.react.ReactInstanceManager
-import com.facebook.react.ReactRootView
+import com.kotlinreactanotherbridge.reactnative.withdraw.WithdrawActivity
 import com.kotlinreactanotherbridge.ui.OnboardCarousel
 import com.kotlinreactanotherbridge.ui.ReferralNav
-import com.kotlinreactanotherbridge.ui.WithdrawActivity
 import com.kotlinreactanotherbridge.ui.enterTransition
 import com.kotlinreactanotherbridge.ui.exitTransition
 import com.kotlinreactanotherbridge.ui.popEnterTransition
@@ -58,15 +56,8 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
-
-  private lateinit var reactRootView: ReactRootView
-  private lateinit var reactInstanceManager: ReactInstanceManager
-
-
-  fun startReactNativeActivity() {
+  private fun startReactNativeActivity() {
     val myIntent = Intent(this, WithdrawActivity::class.java)
-//    myIntent.putExtra("key", value) //Optional parameters
-
     startActivity(myIntent)
   }
 
@@ -153,11 +144,8 @@ class MainActivity : ComponentActivity() {
         }
       }
     }
-
-
   }
 }
-
 
 sealed class Screen(val route: String) {
   object Profile : Screen("home")
@@ -170,7 +158,6 @@ val items = listOf(
   Screen.Wallet,
   Screen.More,
 )
-
 
 @Composable
 fun BottomBarEiei(
@@ -207,7 +194,6 @@ fun BottomBarEiei(
     }
   }
 }
-
 
 @Composable
 fun ScreenHome(onClick: () -> Unit, onMakeSnackBar: () -> Unit) {

@@ -1,6 +1,5 @@
-package com.kotlinreactanotherbridge.ui
+package com.kotlinreactanotherbridge.reactnative.withdraw
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.KeyEvent
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory
@@ -12,18 +11,16 @@ import com.facebook.react.ReactRootView
 import com.facebook.react.common.LifecycleState
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 import com.kotlinreactanotherbridge.BuildConfig
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class WithdrawActivity : ReactActivity(), DefaultHardwareBackBtnHandler {
   private lateinit var reactRootView: ReactRootView
   private lateinit var reactInstanceManager: ReactInstanceManager
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(null)
-//    SoLoader.init(this, false)
     reactRootView = ReactRootView(this)
     val packages: List<ReactPackage> = PackageList(application).packages
-    // Packages that cannot be autolinked yet can be added manually here, for example:
-    // packages.add(MyReactNativePackage())
-    // Remember to include them in `settings.gradle` and `app/build.gradle` too.
     reactInstanceManager = ReactInstanceManager.builder()
       .setApplication(application)
       .setCurrentActivity(this)
@@ -36,7 +33,24 @@ class WithdrawActivity : ReactActivity(), DefaultHardwareBackBtnHandler {
       .build()
     // The string here (e.g. "MyReactNativeApp") has to match
     // the string in AppRegistry.registerComponent() in index.js
-    reactRootView.startReactApplication(reactInstanceManager, "WithdrawStack", null)
+
+    val testJson = WithdrawItem(
+      year = 2024,
+      someBoolean = false,
+      id = "ASDFASRWER",
+      items = listOf(
+        WithdrawSomeItem("Hello", "World"),
+        WithdrawSomeItem("สวัสดี", "โลก")
+      )
+    )
+
+    val initialBundle = Bundle().apply {
+      putString("testString", "Hello")
+      putInt("testInt", 123)
+      putString("testJson", Json.encodeToString(testJson))
+    }
+
+    reactRootView.startReactApplication(reactInstanceManager, "WithdrawStack", initialBundle)
     setContentView(reactRootView)
   }
 

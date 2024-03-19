@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.WithdrawActivity"
+            android:name=".reactnative.withdraw.WithdrawActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
             android:exported="true"

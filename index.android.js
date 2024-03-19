@@ -16,11 +16,11 @@ import {
 
 const Stack = createNativeStackNavigator();
 
-function HomeScreen() {
+function HomeScreen(props) {
   const navigation = useNavigation();
   return (
     <View>
-      <Text>เลือกวิธีถอน</Text>
+      <Text>ปีนี้ปี {props.route.params.testInt}</Text>
       <Button
         title={'ข้ามปี'}
         onPress={() => {
@@ -53,14 +53,18 @@ function WithdrawThisYearScreen() {
   );
 }
 
-const WithdrawStack = () => {
+const WithdrawStack = props => {
+  console.log(props);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={({navigation}) => ({
+          initialParams={{
+            ...props,
+          }}
+          options={() => ({
             headerLeft: () => (
               <Button
                 title="Back"
@@ -68,6 +72,11 @@ const WithdrawStack = () => {
                   BackHandler.exitApp();
                 }}
               />
+            ),
+            headerRight: () => (
+              <Text>
+                {props.testString} {props.testInt}
+              </Text>
             ),
           })}
         />

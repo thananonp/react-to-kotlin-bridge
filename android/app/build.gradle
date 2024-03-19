@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: "kotlinx-serialization"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -141,6 +142,8 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.compose.material:material:1.6.1")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")

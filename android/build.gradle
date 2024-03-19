@@ -18,4 +18,8 @@ buildscript {
     }
 }
 
+plugins {
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.0'
+}
+
 apply plugin: "com.facebook.react.rootproject"
