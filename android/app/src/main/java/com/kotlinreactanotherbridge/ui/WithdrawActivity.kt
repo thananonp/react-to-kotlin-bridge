@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory
 import com.facebook.react.PackageList
+import com.facebook.react.ReactActivity
 import com.facebook.react.ReactInstanceManager
 import com.facebook.react.ReactPackage
 import com.facebook.react.ReactRootView
@@ -12,11 +13,11 @@ import com.facebook.react.common.LifecycleState
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 import com.kotlinreactanotherbridge.BuildConfig
 
-class WithdrawActivity : Activity(), DefaultHardwareBackBtnHandler {
+class WithdrawActivity : ReactActivity(), DefaultHardwareBackBtnHandler {
   private lateinit var reactRootView: ReactRootView
   private lateinit var reactInstanceManager: ReactInstanceManager
   override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+    super.onCreate(null)
 //    SoLoader.init(this, false)
     reactRootView = ReactRootView(this)
     val packages: List<ReactPackage> = PackageList(application).packages
@@ -35,7 +36,7 @@ class WithdrawActivity : Activity(), DefaultHardwareBackBtnHandler {
       .build()
     // The string here (e.g. "MyReactNativeApp") has to match
     // the string in AppRegistry.registerComponent() in index.js
-    reactRootView.startReactApplication(reactInstanceManager, "MyReactNativeApp", null)
+    reactRootView.startReactApplication(reactInstanceManager, "WithdrawStack", null)
     setContentView(reactRootView)
   }
 
@@ -66,9 +67,5 @@ class WithdrawActivity : Activity(), DefaultHardwareBackBtnHandler {
       return true
     }
     return super.onKeyUp(keyCode, event)
-  }
-
-  override fun invokeDefaultOnBackPressed() {
-    super.onBackPressed()
   }
 }
