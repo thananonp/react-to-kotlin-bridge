@@ -14,6 +14,10 @@ import {
   View,
 } from 'react-native';
 
+import {NativeModules} from 'react-native';
+
+const {DeepLinkHandler} = NativeModules;
+
 const Stack = createNativeStackNavigator();
 
 function HomeScreen(props) {
@@ -28,9 +32,9 @@ function HomeScreen(props) {
         }}
       />
       <Button
-        title={'ปีนี้'}
+        title={'ยินยันตัวตน'}
         onPress={() => {
-          navigation.navigate('WithdrawThisYear');
+          navigation.navigate('Verification');
         }}
       />
     </View>
@@ -45,10 +49,15 @@ function WithdrawOverYearScreen() {
   );
 }
 
-function WithdrawThisYearScreen() {
+function VerificationScreen() {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>ถอนปีนี้</Text>
+      <Button
+        title="สมมติว่ายืนยันตัวตนเสร็จแล้ว"
+        onPress={() => {
+          DeepLinkHandler.openDeepLink('Hello');
+        }}
+      />
     </View>
   );
 }
@@ -84,10 +93,7 @@ const WithdrawStack = props => {
           name="WithdrawOverYear"
           component={WithdrawOverYearScreen}
         />
-        <Stack.Screen
-          name="WithdrawThisYear"
-          component={WithdrawThisYearScreen}
-        />
+        <Stack.Screen name="Verification" component={VerificationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -11,6 +11,7 @@ import com.facebook.react.ReactRootView
 import com.facebook.react.common.LifecycleState
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 import com.kotlinreactanotherbridge.BuildConfig
+import com.kotlinreactanotherbridge.reactnative.MyPackage
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -20,7 +21,9 @@ class WithdrawActivity : ReactActivity(), DefaultHardwareBackBtnHandler {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(null)
     reactRootView = ReactRootView(this)
-    val packages: List<ReactPackage> = PackageList(application).packages
+    val packages: List<ReactPackage> = PackageList(application).packages.apply {
+      add(MyPackage())
+    }
     reactInstanceManager = ReactInstanceManager.builder()
       .setApplication(application)
       .setCurrentActivity(this)
