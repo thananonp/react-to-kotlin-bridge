@@ -1,30 +1,20 @@
-import {
-  NavigationContainer,
-  useNavigation,
-  useNavigationContainerRef,
-} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
-import {
-  AppRegistry,
-  BackHandler,
-  Button,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import React, {useEffect} from 'react';
+import {AppRegistry, BackHandler, Button, Text, View} from 'react-native';
 
 import {NativeModules} from 'react-native';
 
-const {DeepLinkHandler} = NativeModules;
+const {WithdrawNativeModule} = NativeModules;
 
 const Stack = createNativeStackNavigator();
 
 function HomeScreen(props) {
   const navigation = useNavigation();
+  console.log(props.route.params.testJson);
   return (
     <View>
-      <Text>ปีนี้ปี {props.route.params.testInt}</Text>
+      <Text>ปีนี้ปี {props.route.params.testJson}</Text>
       <Button
         title={'ข้ามปี'}
         onPress={() => {
@@ -50,12 +40,20 @@ function WithdrawOverYearScreen() {
 }
 
 function VerificationScreen() {
+  useEffect(() => {
+    WithdrawNativeModule.onAppear();
+
+    return () => {
+      WithdrawNativeModule.onFinish();
+    };
+  }, []);
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Button
         title="สมมติว่ายืนยันตัวตนเสร็จแล้ว"
         onPress={() => {
-          DeepLinkHandler.openDeepLink('Hello');
+          WithdrawNativeModule.onWithdraw(123.0);
         }}
       />
     </View>

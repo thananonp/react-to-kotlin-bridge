@@ -7,11 +7,13 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ReactShadowNode
 import com.facebook.react.uimanager.ViewManager
 import com.kotlinreactanotherbridge.reactnative.nativemodules.DeepLinkHandler
+import com.kotlinreactanotherbridge.reactnative.withdraw.WithdrawNativeModule
 
-class MyPackage: ReactPackage {
+class MyPackage : ReactPackage {
   override fun createNativeModules(p0: ReactApplicationContext): MutableList<NativeModule> {
     return mutableListOf(
-      DeepLinkHandler(p0)
+      DeepLinkHandler(p0),
+//      WithdrawNativeModule(p0)
     )
   }
 
