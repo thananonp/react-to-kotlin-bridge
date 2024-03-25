@@ -75,7 +75,6 @@ class WithdrawActivity : ReactActivity(), DefaultHardwareBackBtnHandler {
 
   override fun onBackPressed() {
     reactInstanceManager.onBackPressed()
-    super.onBackPressed()
   }
 
   override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
